@@ -1,0 +1,87 @@
+---
+title: "Analisi covariate"
+author: "m.a."
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+
+```{r intro,include=FALSE,echo=FALSE,warning=FALSE}
+library("tidyverse")
+library("janitor")
+library("INLA")
+library("brinla")
+library("knitr")
+library(ggplot2)
+library("kableExtra")
+
+knitr::opts_chunk$set(echo=FALSE,eval = TRUE)
+```
+
+
+
+```{r var_y,include=TRUE}
+setwd("/mnt/discoring/terni-inla")
+
+# pltnts <- names(elements_data_rev)[17:87]
+# pltnts <- grep("^[M-Z]", pltnts, value = TRUE) 
+var_y <- readRDS("data/var_y.RDS")
+
+```
+
+```{r risultati, results='asis', message=FALSE,echo=FALSE, warning=FALSE}
+
+for (poll in var_y){
+  #poll <- 'Cr_i'
+  if (!poll %in%  c('Steel_Plant_NCR','Biomass_Burning_CR','Biomass_Burning_NCR','Brake_Dust_CR','Brake_Dust_NCR','Road_Dust_CR','Road_Dust_NCR','Soil_Dust_CR','Soil_Dust_NCR','Steel_Plant_CR')) {
+
+inla.out <- readRDS(glue::glue("data/inla/{poll}/inla.out_{poll}.RDS"))
+
+cat("\n## ", poll, "\n\n")
+cat("\n### Formula modello\n\n")
+
+print(as.character(as.formula(inla.out$.args$formula)))
+
+
+cat("\n### Fixed effects\n\n")
+
+brinla::bri.fixed.plot(inla.out)
+
+inla.out$summary.fixed %>%
+  kbl(caption = "Summary Fixed effects table") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+# cat("\n ### Summary hyper\n\n")
+# print(inla.out$summary.hyperpar)
+# cat("\n ### Posterior distributions of the model parameters\n\n")
+# list_marginals <- list(
+#   "precision Gaussian obs" =
+#    inla.out$marginals.hyperpar$"Precision for the Gaussian observations",
+#   "range" = inla.out$marginals.hyperpar$"Range for i",
+#   "stdev" = inla.out$marginals.hyperpar$"Stdev for i"
+# )
+# marginals <- data.frame(do.call(rbind, list_marginals))
+# marginals$parameter <- rep(names(list_marginals),
+#                            times = sapply(list_marginals, nrow)
+# )
+# 
+# 
+# g <- ggplot(marginals, aes(x = x, y = y)) + geom_line() +
+#   facet_wrap(~parameter, scales = "free") +
+#   labs(x = "", y = "Density") + theme_bw()
+# print(g)
+# 
+# cat("\n ### DIC\n\n")
+# print(inla.out$dic$dic)
+ 
+  } 
+  cat("\n\n")
+  }
+```
+
+
+

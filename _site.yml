@@ -1,0 +1,13 @@
+name: "Terni"
+output_dir: "docs"
+navbar:
+  title: "Terni"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Distribuzioni"
+      href: distribution_eda.html
+    - text: "Analisi covariate"
+      href: anaisi_covariate.html
+    - text: "Cross Validazione"
+      href: calcolo_indici_cv.html

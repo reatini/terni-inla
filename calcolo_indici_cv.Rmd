@@ -1,0 +1,141 @@
+---
+title: "K-fold Cross Validation"
+author: "Maria Antonietta Reatini"
+output:
+  html_document:
+    toc : true
+    toc_depth: 2
+    toc_float: true
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r librerie , include=FALSE, echo=FALSE}
+
+library("tidyverse")
+library("data.table")
+library("config")
+library("janitor")
+library("reactable")
+library(rgdal)
+library(mapview)
+library(glue)
+require(kableExtra)
+require(knitr)
+require(ggplot2)
+library(htmlTable)
+library("tidyverse")
+library(glue)
+library(rmarkdown)
+library("openair")
+library("tidyverse")
+
+setwd("/mnt/discoring/terni-inla")
+var_y <- readRDS("data/var_y.RDS")
+
+```
+
+
+```{r risultati_per_stazione, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#var_y <-c('Cr_i','PM10')
+for (poll in var_y) {
+  if (!poll %in%  c(
+    'Steel_Plant_NCR',
+    'Biomass_Burning_CR',
+    'Biomass_Burning_NCR',
+    'Brake_Dust_CR',
+    'Brake_Dust_NCR',
+    'Road_Dust_CR',
+    'Road_Dust_NCR',
+    'Soil_Dust_CR',
+    'Soil_Dust_NCR',
+    'Steel_Plant_CR'
+  )) {
+    sub_poll <- list()
+    for (f in 1:23) {
+      temp <-
+      readRDS(glue::glue("data/inla/{poll}/df_validation_{poll}_{f}.RDS"))
+      temp$fitted <-
+      exp(temp$lfitted + (temp$lfitted.sd ^ 2) / 2) / 1000
+      temp$diff <- temp$fitted - temp$value
+      temp$diffq <- temp$diff ^ 2
+      temp$coverage <-
+        ifelse((temp$log_value >= temp$quan0025) &
+                 (temp$log_value <= temp$quan0975),
+               1,
+               0)
+      sub_poll[[f]] <- temp
+      
+    }
+    dati <-  map_dfr(sub_poll,
+                     bind_rows)
+    dati <- setDT(dati)
+    dati[, list(
+      'mean' = mean(value, na.rm = TRUE),
+      'sd' = sd(value, na.rm = TRUE),
+      "MB" = mean(fitted, na.rm = TRUE) - mean(value, na.rm = TRUE),
+      "RMSE" = sqrt(mean(diffq)),
+      "r" = cor(value, fitted, use = "pairwise.complete.obs"),
+      "coverage" = (sum(coverage, na.rm = TRUE) / .N) * 100
+    ), 
+    by = .(site)] -> risultati_per_stazione
+    
+    modStats(
+      dati,
+      obs = "value",
+      mod = "fitted",
+      type = "site",
+      statistic = c(
+        
+        "FAC2" 
+      )
+    ) -> pm
+    risultati_per_stazione <- inner_join(risultati_per_stazione,pm)
+    cat("\n<h2> ", poll, "</h2>\n\n")
+    # knitr::kable(risultati_per_stazione, table.attr = "class=\"striped\"",
+    # format = "html")
+    # cat("\n### ", 'Risultati per stazione', "\n\n")
+    # kable(risultati_per_stazione,digits = 3)
+    risultati_per_stazione <- as.data.frame(risultati_per_stazione)
+    idx <- sapply(risultati_per_stazione, class) == "numeric"
+    risultati_per_stazione[, idx] <-
+      lapply(risultati_per_stazione[, idx], function(x) {
+        round(x, 3)
+      })
+  
+  risultati_per_stazione %>%  kbl(escape = F) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>% print()
+ # cat("\n\n")
+    
+  # cat("\n### ", 'Grafici', "\n\n")
+  conditionalQuantile(dati, obs = "value", mod = "fitted")
+  
+
+risultati_per_stazione %>%  reshape2::melt() %>% 
+      ggplot() + 
+      geom_boxplot(aes(y = value, x = variable, fill = variable)) + 
+      facet_wrap(~variable, scales = "free", ncol = 7) +
+      theme(axis.title = element_blank(), axis.text.x = element_blank(), legend.position = "none")-> g
+  print(g)
+  
+  ggplot(data = dati, aes(x = value, y = fitted)) +
+    geom_point(alpha = 0.25) +
+    geom_abline(slope = 1,
+                intercept = 0,
+                color = "red") +
+    stat_smooth(method = lm,
+                formula = y ~ x,
+                se = FALSE) +
+    theme_bw() -> g
+  print(g)
+  cat("\n\n")
+  
+  }
+
+}
+
+```
+

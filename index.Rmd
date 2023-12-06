@@ -1,0 +1,58 @@
+---
+title: "Terni"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+{
+  # library(sf)
+  #library(dplyr)
+  library(ggplot2)
+  library(chron)
+  library(readxl)
+library(terra)
+library("sf")
+library(sp)
+library(raster)
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(ggmap) # for fancy plotting
+library(geoR)
+library(gstat)
+library(ggregplot)
+library(RColorBrewer)
+library(vtable)
+library(glue)
+library(kableExtra)
+
+} 
+setwd("C:/Users/maria.reatini/OneDrive - ISPRA/Lavoro/Progetti R/terni-inla")
+# pltnts <- names(elements_data_rev)[17:87]
+# pltnts <- grep("^[M-Z]", pltnts, value = TRUE) 
+var_y <- readRDS("data/var_y.RDS")
+
+```
+
+```{r, results='asis', message=FALSE,echo=FALSE, warning=FALSE}
+
+for (poll in var_y){
+  #poll <- 'Cr_i'
+  if (poll!='Brake_Dust_CR'){
+df <- readRDS(glue::glue("data/rds_finali/{poll}_df.RDS"))
+cat("\n## ", poll, "\n\n")
+df %>% dplyr::select(value,site)%>%  st(labels =poll, group = 'site',group.long = T,digits = 2)%>% kableExtra::kable_styling() %>% print()
+
+df %>% dplyr::select(value)%>%  st(labels =poll)%>% kableExtra::kable_styling() %>% print()
+
+  }}
+```
+
