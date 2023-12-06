@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Terni distribuzione traccianti</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Terni</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="distribution_eda.html">Distribuzioni</a>
+</li>
+<li>
+  <a href="anaisi_covariate.html">Analisi covariate</a>
+</li>
+<li>
+  <a href="calcolo_indici_cv.html">Cross Validazione</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Terni distribuzione traccianti</h1>
+<h4 class="date">06 December, 2023</h4>
+
+</div>
+
+
+<div id="biomass_burning_cr" class="section level2">
+<h2>Biomass_Burning_CR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.90756, p-value = 5.414e-12</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+</div>
+<div id="soil_dust_cr" class="section level2">
+<h2>Soil_Dust_CR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-5.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.92024, p-value = 5.578e-11</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-6.png" width="672" /></p>
+</div>
+<div id="steel_plant_cr" class="section level2">
+<h2>Steel_Plant_CR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-7.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-8.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.86502, p-value = 7.946e-15</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-9.png" width="672" /></p>
+</div>
+<div id="road_dust_cr" class="section level2">
+<h2>Road_Dust_CR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-10.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-11.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.72026, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-12.png" width="672" /></p>
+</div>
+<div id="biomass_burning_ncr" class="section level2">
+<h2>Biomass_Burning_NCR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-13.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-14.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.48411, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-15.png" width="672" /></p>
+</div>
+<div id="soil_dust_ncr" class="section level2">
+<h2>Soil_Dust_NCR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-16.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-17.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.58508, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-18.png" width="672" /></p>
+</div>
+<div id="steel_plant_ncr" class="section level2">
+<h2>Steel_Plant_NCR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-19.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-20.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.55369, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-21.png" width="672" /></p>
+</div>
+<div id="road_dust_ncr" class="section level2">
+<h2>Road_Dust_NCR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-22.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-23.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.44066, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-24.png" width="672" /></p>
+</div>
+<div id="brake_dust_ncr" class="section level2">
+<h2>Brake_Dust_NCR</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-25.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-26.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.50628, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-27.png" width="672" /></p>
+</div>
+<div id="pm10" class="section level2">
+<h2>PM10</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-28.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-29.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98211, p-value = 0.001564</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-30.png" width="672" /></p>
+</div>
+<div id="al_i" class="section level2">
+<h2>Al_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-31.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-32.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98171, p-value = 0.00132</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-33.png" width="672" /></p>
+</div>
+<div id="al_s" class="section level2">
+<h2>Al_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-34.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-35.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98083, p-value = 0.0009146</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-36.png" width="672" /></p>
+</div>
+<div id="as_i" class="section level2">
+<h2>As_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-37.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-38.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.65444, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-39.png" width="672" /></p>
+</div>
+<div id="as_s" class="section level2">
+<h2>As_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-40.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-41.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.92716, p-value = 2.215e-10</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-42.png" width="672" /></p>
+</div>
+<div id="b_i" class="section level2">
+<h2>B_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-43.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-44.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.95742, p-value = 3.132e-07</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-45.png" width="672" /></p>
+</div>
+<div id="b_s" class="section level2">
+<h2>B_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-46.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-47.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.94231, p-value = 6.239e-09</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-48.png" width="672" /></p>
+</div>
+<div id="ba_i" class="section level2">
+<h2>Ba_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-49.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-50.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.88298, p-value = 1.018e-13</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-51.png" width="672" /></p>
+</div>
+<div id="ba_s" class="section level2">
+<h2>Ba_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-52.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-53.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.97656, p-value = 0.0001668</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-54.png" width="672" /></p>
+</div>
+<div id="bi_i" class="section level2">
+<h2>Bi_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-55.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-56.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.95072, p-value = 5.065e-08</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-57.png" width="672" /></p>
+</div>
+<div id="bi_s" class="section level2">
+<h2>Bi_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-58.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-59.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.87513, p-value = 3.235e-14</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-60.png" width="672" /></p>
+</div>
+<div id="ca_i" class="section level2">
+<h2>Ca_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-61.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-62.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.93958, p-value = 3.296e-09</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-63.png" width="672" /></p>
+</div>
+<div id="ca_s" class="section level2">
+<h2>Ca_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-64.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-65.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.96006, p-value = 6.713e-07</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-66.png" width="672" /></p>
+</div>
+<div id="cd_i" class="section level2">
+<h2>Cd_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-67.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-68.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.90126, p-value = 1.834e-12</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-69.png" width="672" /></p>
+</div>
+<div id="cd_s" class="section level2">
+<h2>Cd_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-70.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-71.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.97319, p-value = 4.79e-05</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-72.png" width="672" /></p>
+</div>
+<div id="ce_i" class="section level2">
+<h2>Ce_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-73.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-74.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.96453, p-value = 2.61e-06</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-75.png" width="672" /></p>
+</div>
+<div id="ce_s" class="section level2">
+<h2>Ce_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-76.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-77.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.6599, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-78.png" width="672" /></p>
+</div>
+<div id="co_i" class="section level2">
+<h2>Co_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-79.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-80.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.90513, p-value = 3.545e-12</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-81.png" width="672" /></p>
+</div>
+<div id="co_s" class="section level2">
+<h2>Co_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-82.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-83.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.90904, p-value = 7.029e-12</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-84.png" width="672" /></p>
+</div>
+<div id="cr_i" class="section level2">
+<h2>Cr_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-85.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-86.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.97633, p-value = 0.0001528</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-87.png" width="672" /></p>
+</div>
+<div id="cr_s" class="section level2">
+<h2>Cr_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-88.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-89.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.96447, p-value = 2.56e-06</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-90.png" width="672" /></p>
+</div>
+<div id="cs_i" class="section level2">
+<h2>Cs_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-91.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-92.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.7612, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-93.png" width="672" /></p>
+</div>
+<div id="cs_s" class="section level2">
+<h2>Cs_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-94.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-95.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.94174, p-value = 5.45e-09</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-96.png" width="672" /></p>
+</div>
+<div id="cu_i" class="section level2">
+<h2>Cu_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-97.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-98.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.9906, p-value = 0.07353</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-99.png" width="672" /></p>
+</div>
+<div id="cu_s" class="section level2">
+<h2>Cu_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-100.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-101.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.99364, p-value = 0.2948</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-102.png" width="672" /></p>
+</div>
+<div id="fe_i" class="section level2">
+<h2>Fe_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-103.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-104.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98078, p-value = 0.000896</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-105.png" width="672" /></p>
+</div>
+<div id="fe_s" class="section level2">
+<h2>Fe_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-106.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-107.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.92017, p-value = 5.508e-11</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-108.png" width="672" /></p>
+</div>
+<div id="ga_i" class="section level2">
+<h2>Ga_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-109.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-110.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.77876, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-111.png" width="672" /></p>
+</div>
+<div id="ga_s" class="section level2">
+<h2>Ga_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-112.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-113.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.94063, p-value = 4.205e-09</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-114.png" width="672" /></p>
+</div>
+<div id="k_i" class="section level2">
+<h2>K_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-115.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-116.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.91773, p-value = 3.455e-11</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-117.png" width="672" /></p>
+</div>
+<div id="k_s" class="section level2">
+<h2>K_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-118.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-119.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.92678, p-value = 2.05e-10</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-120.png" width="672" /></p>
+</div>
+<div id="la_i" class="section level2">
+<h2>La_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-121.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-122.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.94445, p-value = 1.045e-08</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-123.png" width="672" /></p>
+</div>
+<div id="la_s" class="section level2">
+<h2>La_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-124.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-125.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.36767, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-126.png" width="672" /></p>
+</div>
+<div id="li_i" class="section level2">
+<h2>Li_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-127.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-128.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98184, p-value = 0.001389</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-129.png" width="672" /></p>
+</div>
+<div id="li_s" class="section level2">
+<h2>Li_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-130.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-131.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98634, p-value = 0.01003</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-132.png" width="672" /></p>
+</div>
+<div id="mg_i" class="section level2">
+<h2>Mg_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-133.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-134.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98919, p-value = 0.0377</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-135.png" width="672" /></p>
+</div>
+<div id="mg_s" class="section level2">
+<h2>Mg_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-136.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-137.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.96641, p-value = 4.749e-06</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-138.png" width="672" /></p>
+</div>
+<div id="mn_i" class="section level2">
+<h2>Mn_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-139.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-140.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98038, p-value = 0.0007587</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-141.png" width="672" /></p>
+</div>
+<div id="mn_s" class="section level2">
+<h2>Mn_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-142.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-143.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98373, p-value = 0.003128</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-144.png" width="672" /></p>
+</div>
+<div id="mo_i" class="section level2">
+<h2>Mo_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-145.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-146.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98967, p-value = 0.04738</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-147.png" width="672" /></p>
+</div>
+<div id="mo_s" class="section level2">
+<h2>Mo_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-148.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-149.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.96273, p-value = 1.496e-06</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-150.png" width="672" /></p>
+</div>
+<div id="na_i" class="section level2">
+<h2>Na_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-151.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-152.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.9854, p-value = 0.006566</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-153.png" width="672" /></p>
+</div>
+<div id="na_s" class="section level2">
+<h2>Na_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-154.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-155.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.88909, p-value = 2.581e-13</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-156.png" width="672" /></p>
+</div>
+<div id="nb_i" class="section level2">
+<h2>Nb_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-157.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-158.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.82658, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-159.png" width="672" /></p>
+</div>
+<div id="nb_s" class="section level2">
+<h2>Nb_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-160.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-161.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.91647, p-value = 2.721e-11</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-162.png" width="672" /></p>
+</div>
+<div id="ni_i" class="section level2">
+<h2>Ni_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-163.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-164.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.95682, p-value = 2.643e-07</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-165.png" width="672" /></p>
+</div>
+<div id="ni_s" class="section level2">
+<h2>Ni_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-166.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-167.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98013, p-value = 0.0006851</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-168.png" width="672" /></p>
+</div>
+<div id="pb_i" class="section level2">
+<h2>Pb_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-169.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-170.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98213, p-value = 0.001577</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-171.png" width="672" /></p>
+</div>
+<div id="pb_s" class="section level2">
+<h2>Pb_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-172.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-173.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.96963, p-value = 1.378e-05</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-174.png" width="672" /></p>
+</div>
+<div id="rb_i" class="section level2">
+<h2>Rb_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-175.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-176.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98474, p-value = 0.004895</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-177.png" width="672" /></p>
+</div>
+<div id="rb_s" class="section level2">
+<h2>Rb_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-178.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-179.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98029, p-value = 0.0007322</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-180.png" width="672" /></p>
+</div>
+<div id="sb_i" class="section level2">
+<h2>Sb_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-181.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-182.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.97886, p-value = 0.0004104</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-183.png" width="672" /></p>
+</div>
+<div id="sb_s" class="section level2">
+<h2>Sb_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-184.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-185.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.95846, p-value = 4.214e-07</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-186.png" width="672" /></p>
+</div>
+<div id="sn_i" class="section level2">
+<h2>Sn_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-187.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-188.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98249, p-value = 0.001835</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-189.png" width="672" /></p>
+</div>
+<div id="sn_s" class="section level2">
+<h2>Sn_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-190.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-191.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.9935, p-value = 0.2781</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-192.png" width="672" /></p>
+</div>
+<div id="sr_i" class="section level2">
+<h2>Sr_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-193.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-194.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.96617, p-value = 4.388e-06</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-195.png" width="672" /></p>
+</div>
+<div id="sr_s" class="section level2">
+<h2>Sr_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-196.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-197.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98465, p-value = 0.004699</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-198.png" width="672" /></p>
+</div>
+<div id="ti_i" class="section level2">
+<h2>Ti_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-199.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-200.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98936, p-value = 0.04095</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-201.png" width="672" /></p>
+</div>
+<div id="ti_s" class="section level2">
+<h2>Ti_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-202.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-203.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.75727, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-204.png" width="672" /></p>
+</div>
+<div id="tl_i" class="section level2">
+<h2>Tl_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-205.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-206.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.79674, p-value &lt; 2.2e-16</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-207.png" width="672" /></p>
+</div>
+<div id="tl_s" class="section level2">
+<h2>Tl_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-208.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-209.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.93579, p-value = 1.398e-09</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-210.png" width="672" /></p>
+</div>
+<div id="u_i" class="section level2">
+<h2>U_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-211.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-212.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.88114, p-value = 7.739e-14</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-213.png" width="672" /></p>
+</div>
+<div id="u_s" class="section level2">
+<h2>U_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-214.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-215.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.93608, p-value = 1.489e-09</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-216.png" width="672" /></p>
+</div>
+<div id="v_i" class="section level2">
+<h2>V_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-217.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-218.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.91991, p-value = 5.241e-11</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-219.png" width="672" /></p>
+</div>
+<div id="v_s" class="section level2">
+<h2>V_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-220.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-221.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98202, p-value = 0.001502</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-222.png" width="672" /></p>
+</div>
+<div id="w_i" class="section level2">
+<h2>W_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-223.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-224.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.95198, p-value = 7.052e-08</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-225.png" width="672" /></p>
+</div>
+<div id="w_s" class="section level2">
+<h2>W_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-226.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-227.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.94611, p-value = 1.567e-08</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-228.png" width="672" /></p>
+</div>
+<div id="zn_i" class="section level2">
+<h2>Zn_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-229.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-230.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.94965, p-value = 3.83e-08</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-231.png" width="672" /></p>
+</div>
+<div id="zn_s" class="section level2">
+<h2>Zn_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-232.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-233.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.97056, p-value = 1.892e-05</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-234.png" width="672" /></p>
+</div>
+<div id="zr_i" class="section level2">
+<h2>Zr_i</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-235.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-236.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.95163, p-value = 6.423e-08</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-237.png" width="672" /></p>
+</div>
+<div id="zr_s" class="section level2">
+<h2>Zr_s</h2>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-238.png" width="672" /></p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-239.png" width="672" /></p>
+<pre><code>Shapiro-Wilk normality test</code></pre>
+<p>data: df$log_value W = 0.98341, p-value = 0.002723</p>
+<p><img src="distribution_eda_files/figure-html/unnamed-chunk-1-240.png" width="672" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
